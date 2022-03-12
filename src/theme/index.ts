@@ -1,0 +1,11 @@
+export default {
+  COLORS: {
+    PRIMARY_COLOR: '#ED3237',
+    SECONDARY_COLOR: '#F09035',
+
+    DARK_GRAY: '#4E4E4E',
+    DARK_YELLOW: '#E49700',
+    LIGHT_YELLOW: '#FDD70E33',
+    WHITE: '#FFFFFF',
+  },
+};
