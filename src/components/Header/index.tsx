@@ -13,29 +13,36 @@ import deliverizePNG from '../../assets/Deliverize.png';
 export function Header() {
   const [deviceWidth, setDeviceWidth] = useState<number>();
 
-  useEffect(() => window.addEventListener('resize', () => setDeviceWidth(window.innerWidth)), []);
+  useEffect(
+    () =>
+      window.addEventListener('resize', () => {
+        console.log(window.innerWidth);
+        setDeviceWidth(window.innerWidth);
+      }),
+    []
+  );
 
-  if (deviceWidth < 800) {
+  if (deviceWidth > 768) {
     return (
-      <MobileContainer>
-        <Image src={arrowLeftSVG} alt="Voltar" />
+      <DesktopContainer>
+        <Image src={deliverizePNG} alt="Deliverize" />
 
-        <LogoContainer>
-          <Image src={deliverizePNG} alt="Deliverize" />
-        </LogoContainer>
-      </MobileContainer>
+        <Navbar>
+          <Address />
+          <SearchInput />
+          <UserData />
+        </Navbar>
+      </DesktopContainer>
     );
   }
 
   return (
-    <DesktopContainer>
-      <Image src={deliverizePNG} alt="Deliverize" />
+    <MobileContainer>
+      <Image src={arrowLeftSVG} alt="Voltar" />
 
-      <Navbar>
-        <Address />
-        <SearchInput />
-        <UserData />
-      </Navbar>
-    </DesktopContainer>
+      <LogoContainer>
+        <Image src={deliverizePNG} alt="Deliverize" />
+      </LogoContainer>
+    </MobileContainer>
   );
 }
