@@ -2,6 +2,7 @@ import { Container } from './styles';
 
 import { TitleContainer } from './Title';
 import { Ingredient } from './Ingredient';
+import { Cutlery } from './Cutlery';
 
 export function ProductIngredients() {
   return (
@@ -13,6 +14,8 @@ export function ProductIngredients() {
       <Ingredient />
       <Ingredient />
       <Ingredient />
+
+      <Cutlery />
     </Container>
   );
 }
