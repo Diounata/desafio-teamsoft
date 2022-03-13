@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { MobileContainer, DesktopContainer, LogoContainer, Navbar } from './styles';
 import Image from 'next/image';
@@ -13,16 +13,11 @@ import deliverizePNG from '../../assets/Deliverize.png';
 export function Header() {
   const [deviceWidth, setDeviceWidth] = useState<number>();
 
-  useEffect(
-    () =>
-      window.addEventListener('resize', () => {
-        console.log(window.innerWidth);
-        setDeviceWidth(window.innerWidth);
-      }),
-    []
-  );
+  useLayoutEffect(() => {
+    window.addEventListener('resize', () => setDeviceWidth(document.body.clientWidth));
+  }, []);
 
-  if (deviceWidth > 768) {
+  if (deviceWidth > 1024) {
     return (
       <DesktopContainer>
         <Image src={deliverizePNG} alt="Deliverize" />
