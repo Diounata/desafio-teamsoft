@@ -14,7 +14,10 @@ export function Header() {
   const [deviceWidth, setDeviceWidth] = useState<number>();
 
   useLayoutEffect(() => {
+    const width = document.body.clientWidth;
+
     window.addEventListener('resize', () => setDeviceWidth(document.body.clientWidth));
+    setDeviceWidth(width);
   }, []);
 
   if (deviceWidth > 1024) {
