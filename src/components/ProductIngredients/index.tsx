@@ -4,16 +4,18 @@ import { TitleContainer } from './Title';
 import { Ingredient } from './Ingredient';
 import { Cutlery } from './Cutlery';
 
+import { useProduct } from '../../contexts/ProductContext';
+
 export function ProductIngredients() {
+  const { product } = useProduct();
+
   return (
     <Container>
       <TitleContainer />
 
-      <Ingredient />
-      <Ingredient />
-      <Ingredient />
-      <Ingredient />
-      <Ingredient />
+      {product.ingredients[0].itens.map(ingredient => (
+        <Ingredient value={ingredient} key={ingredient.id} />
+      ))}
 
       <Cutlery />
     </Container>

@@ -2,13 +2,16 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../styles/main';
 
 import THEME from '../theme';
+import { ProductProvider } from '../contexts/ProductContext';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={THEME}>
-      <GlobalStyle />
+      <ProductProvider>
+        <GlobalStyle />
 
-      <Component {...pageProps} />
+        <Component {...pageProps} />
+      </ProductProvider>
     </ThemeProvider>
   );
 }

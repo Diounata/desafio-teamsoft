@@ -1,6 +1,6 @@
-import axios, { Axios } from 'axios';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { ProductProps } from '../types/ProductProps';
+import axios from 'axios';
 
 const ProductContext = createContext({} as ContextProps);
 

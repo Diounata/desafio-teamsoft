@@ -1,12 +1,14 @@
-interface IngredientsProps {
+interface IngredientItemProps {
+  id: number;
+  nm_item: string;
+  vl_item: number;
+}
+
+interface IngredientProps {
   group: string;
-  max_items: number;
+  max_itens: number;
   type: number;
-  itens: {
-    id: number;
-    nm_item: string;
-    vl_item: number;
-  }[];
+  itens: IngredientItemProps[];
 }
 
 interface ProductProps {
@@ -17,7 +19,7 @@ interface ProductProps {
   vl_price: number;
   vl_discount: number;
   url_image: string;
-  ingredients: IngredientsProps[];
+  ingredients: IngredientProps[];
 }
 
-export type { ProductProps };
+export type { IngredientItemProps, ProductProps };

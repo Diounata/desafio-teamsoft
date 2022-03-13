@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Container = styled.section`
   margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 32px;
 `;
 
 const Title = styled.h1`
