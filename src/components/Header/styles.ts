@@ -11,9 +11,21 @@ const Container = styled.header`
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
 `;
 
+const MobileContainer = styled(Container)``;
+
+const DesktopContainer = styled(Container)`
+  justify-content: space-between;
+`;
+
 const LogoContainer = styled.div`
   width: 100%;
   text-align: center;
 `;
 
-export { Container, LogoContainer };
+const Navbar = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+`;
+
+export { MobileContainer, DesktopContainer, LogoContainer, Navbar };
