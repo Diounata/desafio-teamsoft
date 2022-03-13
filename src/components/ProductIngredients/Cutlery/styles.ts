@@ -28,15 +28,28 @@ const Option = styled.p`
   color: ${({ theme }) => theme.COLORS.DARK_GRAY};
 `;
 
-const OptionButton = styled.button`
+const OptionButton = styled.button<{ selected?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 1rem;
   height: 1rem;
+  padding: 0.1rem;
 
   background-color: inherit;
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_YELLOW};
   border-radius: 1rem;
 
   cursor: pointer;
+
+  div {
+    width: 0.45rem;
+    height: 0.45rem;
+
+    background-color: ${props => props.selected && props.theme.COLORS.DARK_YELLOW};
+    border-radius: 4px;
+  }
 `;
 
 export { TitleContainer, Title, OptionContainer, Option, OptionButton };

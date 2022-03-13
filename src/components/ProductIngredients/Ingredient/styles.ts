@@ -46,4 +46,11 @@ const Amount = styled.p`
   color: ${({ theme }) => theme.COLORS.DARK_GRAY};
 `;
 
-export { Container, IngredientContainer, Title, Price, AmountContainer, Amount };
+const Button = styled.button<{ amount?: number }>`
+  opacity: ${props => (props.amount === 0 ? 0.4 : 1)};
+
+  background-color: inherit;
+  border: none;
+`;
+
+export { Container, IngredientContainer, Title, Price, AmountContainer, Amount, Button };

@@ -16,13 +16,13 @@ export function Cutlery() {
       <OptionContainer>
         <Option>Sim</Option>
 
-        <OptionButton />
+        <OptionButton selected children={<div />} />
       </OptionContainer>
 
       <OptionContainer>
         <Option>Não</Option>
 
-        <OptionButton />
+        <OptionButton children={<div />} />
       </OptionContainer>
     </>
   );

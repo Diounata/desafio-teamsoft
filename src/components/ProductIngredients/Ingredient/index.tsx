@@ -1,4 +1,4 @@
-import { Container, IngredientContainer, Title, Price, AmountContainer, Amount } from './styles';
+import { Container, IngredientContainer, Title, Price, AmountContainer, Amount, Button } from './styles';
 import Image from 'next/image';
 
 import minusSignSVG from '../../../assets/minus-sign.svg';
@@ -20,11 +20,15 @@ export function Ingredient({ value }: Props) {
       </IngredientContainer>
 
       <AmountContainer>
-        <Image src={minusSignSVG} alt="Remover" height={14} />
+        <Button amount={0}>
+          <Image src={minusSignSVG} alt="Remover" height={14} />
+        </Button>
 
         <Amount>1</Amount>
 
-        <Image src={plusSignSVG} alt="Adicionar" height={14} />
+        <Button>
+          <Image src={plusSignSVG} alt="Adicionar" height={14} />
+        </Button>
       </AmountContainer>
     </Container>
   );

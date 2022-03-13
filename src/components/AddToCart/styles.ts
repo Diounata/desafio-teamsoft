@@ -23,6 +23,16 @@ const Amount = styled.p`
   font: 500 14px 'Roboto';
 `;
 
+const AmountButton = styled.button<{ amount?: number }>`
+  display: grid;
+  place-items: center;
+
+  background-color: inherit;
+  border: none;
+
+  opacity: ${props => (props.amount === 1 ? 0.4 : 1)};
+`;
+
 const AddButton = styled.button`
   font: 500 14px 'Roboto';
   color: ${({ theme }) => theme.COLORS.WHITE};
@@ -32,4 +42,4 @@ const AddButton = styled.button`
   border-radius: 4px;
 `;
 
-export { Container, AmountContainer, Amount, AddButton };
+export { Container, AmountContainer, Amount, AmountButton, AddButton };
