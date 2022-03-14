@@ -24,7 +24,7 @@ const Text = styled.p`
 const CartSVGContainer = styled.div`
   position: relative;
 
-  > div {
+  > div:last-child {
     display: grid;
     place-items: center;
 

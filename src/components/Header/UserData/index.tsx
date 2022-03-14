@@ -1,6 +1,8 @@
 import { CartSVGContainer, Container, DataContainer, Text } from './styles';
 import Image from 'next/image';
 
+import { Popover } from '../../Popover';
+
 import accountCircleSVG from '../../../assets/account-circle.svg';
 import shoppingCartSVG from '../../../assets/shopping-cart.svg';
 
@@ -16,6 +18,7 @@ export function UserData() {
       <DataContainer>
         <CartSVGContainer>
           <Image src={shoppingCartSVG} alt="Carrinho" />
+          <Popover />
 
           <div>7</div>
         </CartSVGContainer>
