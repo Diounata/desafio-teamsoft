@@ -51,6 +51,13 @@ const Button = styled.button<{ amount?: number }>`
 
   background-color: inherit;
   border: none;
+
+  cursor: ${props => (props.amount === 0 ? 'not-allowed' : 'pointer')};
+  transition: 0.2s;
+
+  &:hover {
+    filter: brightness(70%);
+  }
 `;
 
 export { Container, IngredientContainer, Title, Price, AmountContainer, Amount, Button };

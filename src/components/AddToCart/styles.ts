@@ -31,6 +31,13 @@ const AmountButton = styled.button<{ amount?: number }>`
   border: none;
 
   opacity: ${props => (props.amount === 1 ? 0.4 : 1)};
+
+  cursor: ${props => (props.amount === 1 ? 'not-allowed' : 'pointer')};
+  transition: 0.2s;
+
+  &:hover {
+    filter: brightness(70%);
+  }
 `;
 
 const AddButton = styled.button`
@@ -40,6 +47,13 @@ const AddButton = styled.button`
   background-color: ${({ theme }) => theme.COLORS.SECONDARY_COLOR};
   border: none;
   border-radius: 4px;
+
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    filter: brightness(80%);
+  }
 `;
 
 export { Container, AmountContainer, Amount, AmountButton, AddButton };
