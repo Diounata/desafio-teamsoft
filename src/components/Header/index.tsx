@@ -1,5 +1,3 @@
-import { useLayoutEffect, useState } from 'react';
-
 import { MobileContainer, DesktopContainer, LogoContainer, Navbar } from './styles';
 import Image from 'next/image';
 
@@ -9,16 +7,10 @@ import { UserData } from './UserData';
 
 import arrowLeftSVG from '../../assets/arrow-left.svg';
 import deliverizePNG from '../../assets/Deliverize.png';
+import { useDeviceWidth } from '../../services/useDeviceWidth';
 
 export function Header() {
-  const [deviceWidth, setDeviceWidth] = useState<number>();
-
-  useLayoutEffect(() => {
-    const width = document.body.clientWidth;
-
-    window.addEventListener('resize', () => setDeviceWidth(document.body.clientWidth));
-    setDeviceWidth(width);
-  }, []);
+  const { deviceWidth } = useDeviceWidth();
 
   if (deviceWidth > 1024) {
     return (
