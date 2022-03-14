@@ -3,6 +3,27 @@ import styled from 'styled-components';
 const Container = styled.section`
   margin-top: 1.5rem;
   margin-bottom: 32px;
+
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 1.75rem;
+      margin: 2rem 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+
+      margin: 2rem 0;
+    }
+
+    span {
+      font-size: 1.8rem;
+
+      &:first-child {
+        color: #dc6e05;
+      }
+    }
+  }
 `;
 
 const Title = styled.h1`

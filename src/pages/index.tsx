@@ -1,4 +1,4 @@
-import { Container, ProductImageContainer, ProductContainer } from '../styles/ProductPage';
+import { Container, IngredientsContainer, ProductImageContainer } from '../styles/ProductPage';
 import Image from 'next/image';
 
 import { Header } from '../components/Header';
@@ -9,29 +9,40 @@ import { AddToCart } from '../components/AddToCart';
 import burgerSVG from '../assets/burger.svg';
 
 import { useProduct } from '../contexts/ProductContext';
+import { useDeviceWidth } from '../services/useDeviceWidth';
 
 export default function Home() {
   const { isLoading } = useProduct();
+  const { deviceWidth } = useDeviceWidth();
 
   return (
-    <Container>
+    <>
       <Header />
 
-      <ProductContainer>
+      <Container>
         {isLoading
           ? 'Loading...'
           : (
             <>
-              <ProductImageContainer>
-                <Image src={burgerSVG} width={343} height={130} />
-              </ProductImageContainer>
+              <section>
+                <ProductImageContainer>
+                  <Image
+                    src={burgerSVG}
+                    width={deviceWidth > 1024 ? 686 : 343}
+                    height={deviceWidth > 1024 ? 260 : 130}
+                  />
+                </ProductImageContainer>
 
-              <ProductDescription />
-              <ProductIngredients />
-              <AddToCart />
+                <ProductDescription />
+              </section>
+
+              <IngredientsContainer>
+                <ProductIngredients />
+                <AddToCart />
+              </IngredientsContainer>
             </>
         )}
-      </ProductContainer>
-    </Container>
+      </Container>
+    </>
   );
 }

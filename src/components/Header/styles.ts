@@ -15,6 +15,8 @@ const MobileContainer = styled(Container)``;
 
 const DesktopContainer = styled(Container)`
   justify-content: space-between;
+
+  padding: 1rem 2.5rem;
 `;
 
 const LogoContainer = styled.div`

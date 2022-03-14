@@ -15,7 +15,7 @@ export function Header() {
   if (deviceWidth > 1024) {
     return (
       <DesktopContainer>
-        <Image src={deliverizePNG} alt="Deliverize" />
+        <Image src={deliverizePNG} width={225} height={48} alt="Deliverize" />
 
         <Navbar>
           <Address />
