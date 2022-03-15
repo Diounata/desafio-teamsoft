@@ -1,3 +1,14 @@
+interface IngredientAmountProps {
+  id: number;
+  nm_item: string;
+  amount: number;
+}
+
+interface AmountProps {
+  product: number;
+  ingredients: IngredientAmountProps[];
+}
+
 interface IngredientItemProps {
   id: number;
   nm_item: string;
@@ -22,4 +33,4 @@ interface ProductProps {
   ingredients: IngredientProps[];
 }
 
-export type { IngredientItemProps, ProductProps };
+export type { IngredientAmountProps, AmountProps, IngredientItemProps, ProductProps };

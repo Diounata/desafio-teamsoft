@@ -4,7 +4,11 @@ import Image from 'next/image';
 import minusSignSVG from '../../assets/minus-sign.svg';
 import plusSignSVG from '../../assets/plus-sign.svg';
 
+import { useProduct } from '../../contexts/ProductContext';
+
 export function AddToCart() {
+  const { amount } = useProduct();
+
   return (
     <Container>
       <AmountContainer>
@@ -12,7 +16,7 @@ export function AddToCart() {
           <Image src={minusSignSVG} alt="Diminuir" />
         </AmountButton>
 
-        <Amount>1</Amount>
+        <Amount>{amount.product}</Amount>
 
         <AmountButton>
           <Image src={plusSignSVG} alt="Aumentar" />

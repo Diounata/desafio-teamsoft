@@ -4,14 +4,17 @@ import Image from 'next/image';
 import minusSignSVG from '../../../assets/minus-sign.svg';
 import plusSignSVG from '../../../assets/plus-sign.svg';
 
-import { IngredientItemProps } from '../../../types/ProductProps';
+import { IngredientAmountProps, IngredientItemProps } from '../../../types/ProductProps';
 import { formatToCurrency } from '../../../services/formatCurrency';
 
 interface Props {
   value: IngredientItemProps;
+  ingredientAmount: IngredientAmountProps;
 }
 
-export function Ingredient({ value }: Props) {
+export function Ingredient({ value, ingredientAmount }: Props) {
+  const { amount } = ingredientAmount;
+
   return (
     <Container>
       <IngredientContainer>
@@ -20,11 +23,11 @@ export function Ingredient({ value }: Props) {
       </IngredientContainer>
 
       <AmountContainer>
-        <Button amount={0}>
+        <Button amount={amount}>
           <Image src={minusSignSVG} alt="Remover" height={14} />
         </Button>
 
-        <Amount>1</Amount>
+        <Amount>{amount}</Amount>
 
         <Button>
           <Image src={plusSignSVG} alt="Adicionar" height={14} />
