@@ -7,18 +7,22 @@ import plusSignSVG from '../../assets/plus-sign.svg';
 import { useProduct } from '../../contexts/ProductContext';
 
 export function AddToCart() {
-  const { amount } = useProduct();
+  const { amount, updateAmount } = useProduct();
 
   return (
     <Container>
       <AmountContainer>
-        <AmountButton amount={1}>
+        <AmountButton
+          onClick={() => updateAmount({ action: 'decrease', type: 'product' })}
+          amount={amount.product}
+          disabled={amount.product === 1}
+        >
           <Image src={minusSignSVG} alt="Diminuir" />
         </AmountButton>
 
         <Amount>{amount.product}</Amount>
 
-        <AmountButton>
+        <AmountButton onClick={() => updateAmount({ action: 'increase', type: 'product' })}>
           <Image src={plusSignSVG} alt="Aumentar" />
         </AmountButton>
       </AmountContainer>

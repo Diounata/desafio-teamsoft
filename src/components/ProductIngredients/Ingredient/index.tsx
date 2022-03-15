@@ -7,12 +7,16 @@ import plusSignSVG from '../../../assets/plus-sign.svg';
 import { IngredientAmountProps, IngredientItemProps } from '../../../types/ProductProps';
 import { formatToCurrency } from '../../../services/formatCurrency';
 
+import { useProduct } from '../../../contexts/ProductContext';
+
 interface Props {
   value: IngredientItemProps;
   ingredientAmount: IngredientAmountProps;
 }
 
 export function Ingredient({ value, ingredientAmount }: Props) {
+  const { updateAmount } = useProduct();
+
   const { amount } = ingredientAmount;
 
   return (
@@ -23,13 +27,19 @@ export function Ingredient({ value, ingredientAmount }: Props) {
       </IngredientContainer>
 
       <AmountContainer>
-        <Button amount={amount}>
-          <Image src={minusSignSVG} alt="Remover" height={14} />
+        <Button
+          onClick={() => updateAmount({ action: 'decrease', type: 'ingredient', ingredientId: value.id })}
+          amount={amount}
+          disabled={amount === 0}
+        >
+          <Image src={minusSignSVG} alt="Diminuir" height={14} />
         </Button>
 
         <Amount>{amount}</Amount>
 
-        <Button>
+        <Button
+          onClick={() => updateAmount({ action: 'increase', type: 'ingredient', ingredientId: value.id })}
+        >
           <Image src={plusSignSVG} alt="Adicionar" height={14} />
         </Button>
       </AmountContainer>
