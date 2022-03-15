@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { AmountProps, IngredientAmountProps, ProductProps } from '../types/ProductProps';
+import { AmountProps, ProductProps } from '../types/ProductProps';
 import axios from 'axios';
 
 const ProductContext = createContext({} as ContextProps);
@@ -17,6 +17,8 @@ interface UpdateAmountProps {
 interface ContextProps {
   product: ProductProps;
   amount: AmountProps;
+  originalPrice: number;
+  discountedPrice: number;
   isLoading: boolean;
 
   updateAmount(props: UpdateAmountProps): void;
@@ -25,6 +27,8 @@ interface ContextProps {
 export function ProductProvider({ children }: ChildrenProps) {
   const [product, setProduct] = useState<ProductProps>();
   const [amount, setAmount] = useState<AmountProps>();
+  const [originalPrice, setOriginalPrice] = useState<number>();
+  const [discountedPrice, setDiscountedPrice] = useState<number>();
   const [isLoading, setIsLoading] = useState(true);
 
   function updateAmount(props: UpdateAmountProps): void {
@@ -57,8 +61,8 @@ export function ProductProvider({ children }: ChildrenProps) {
     axios.get('https://6077803e1ed0ae0017d6aea4.mockapi.io/test-frontend/products').then(res => {
       const data: ProductProps = res.data[0];
 
-      const ingredientsAmount = data.ingredients[0].itens.map(({ id, nm_item }) => {
-        return { id, nm_item, amount: 1 };
+      const ingredientsAmount = data.ingredients[0].itens.map(ingredient => {
+        return { ...ingredient, amount: 1 };
       });
 
       const productAmount: AmountProps = {
@@ -72,8 +76,28 @@ export function ProductProvider({ children }: ChildrenProps) {
     });
   }, []);
 
+  useEffect(() => {
+    if (isLoading) return;
+
+    let amountPrice = amount.product * product.vl_price;
+    const productAmount = amount.ingredients;
+
+    for (let i = 0; i < productAmount.length; i++) {
+      const { vl_item, amount } = productAmount[i];
+
+      amountPrice += vl_item * amount;
+    }
+
+    const PRODUCT_DISCOUNT_VALUE = product.vl_discount / product.vl_price;
+
+    setDiscountedPrice(amountPrice * PRODUCT_DISCOUNT_VALUE);
+    setOriginalPrice(amountPrice);
+  }, [isLoading, amount]);
+
   return (
-    <ProductContext.Provider value={{ product, amount, isLoading, updateAmount }}>
+    <ProductContext.Provider
+      value={{ product, amount, originalPrice, discountedPrice, isLoading, updateAmount }}
+    >
       {children}
     </ProductContext.Provider>
   );

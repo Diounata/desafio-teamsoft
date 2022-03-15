@@ -4,7 +4,7 @@ import { useProduct } from '../../contexts/ProductContext';
 import { formatToCurrency } from '../../services/formatCurrency';
 
 export function ProductDescription() {
-  const { product } = useProduct();
+  const { product, originalPrice, discountedPrice } = useProduct();
 
   return (
     <Container>
@@ -13,8 +13,8 @@ export function ProductDescription() {
       <Description>{product.description}</Description>
 
       <PriceContainer>
-        <DiscountedPrice>{formatToCurrency(product.vl_discount)}</DiscountedPrice>
-        <OldPrice>{formatToCurrency(product.vl_price)}</OldPrice>
+        <DiscountedPrice>{formatToCurrency(discountedPrice)}</DiscountedPrice>
+        <OldPrice>{formatToCurrency(originalPrice)}</OldPrice>
       </PriceContainer>
     </Container>
   );

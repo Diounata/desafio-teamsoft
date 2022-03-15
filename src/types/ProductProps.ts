@@ -1,18 +1,16 @@
-interface IngredientAmountProps {
+interface IngredientItemProps {
   id: number;
   nm_item: string;
+  vl_item: number;
+}
+
+interface IngredientAmountProps extends IngredientItemProps {
   amount: number;
 }
 
 interface AmountProps {
   product: number;
   ingredients: IngredientAmountProps[];
-}
-
-interface IngredientItemProps {
-  id: number;
-  nm_item: string;
-  vl_item: number;
 }
 
 interface IngredientProps {
