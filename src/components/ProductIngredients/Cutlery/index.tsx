@@ -3,7 +3,7 @@ import { TitleContainer, Title, OptionContainer, Option, OptionButton } from './
 import { useProduct } from '../../../contexts/ProductContext';
 
 export function Cutlery() {
-  const { product } = useProduct();
+  const { product, needCutlery, toggleCutlery } = useProduct();
 
   const { group } = product.ingredients[1];
 
@@ -16,13 +16,21 @@ export function Cutlery() {
       <OptionContainer>
         <Option>Sim</Option>
 
-        <OptionButton selected children={<div />} />
+        <OptionButton
+          onClick={() => toggleCutlery(true)}
+          selected={needCutlery}
+          children={<div />}
+        />
       </OptionContainer>
 
       <OptionContainer>
         <Option>Não</Option>
 
-        <OptionButton children={<div />} />
+        <OptionButton
+          onClick={() => toggleCutlery(false)}
+          selected={!needCutlery}
+          children={<div />}
+        />
       </OptionContainer>
     </>
   );

@@ -18,17 +18,20 @@ interface ContextProps {
   product: ProductProps;
   amount: AmountProps;
   totalIngredientsAmount: number;
+  needCutlery: boolean;
   originalPrice: number;
   discountedPrice: number;
   isLoading: boolean;
 
   updateAmount(props: UpdateAmountProps): void;
+  toggleCutlery(value: boolean): void;
 }
 
 export function ProductProvider({ children }: ChildrenProps) {
   const [product, setProduct] = useState<ProductProps>();
   const [amount, setAmount] = useState<AmountProps>();
   const [totalIngredientsAmount, setTotalIngredientsAmount] = useState<number>();
+  const [needCutlery, setNeedCutlery] = useState(false);
   const [originalPrice, setOriginalPrice] = useState<number>();
   const [discountedPrice, setDiscountedPrice] = useState<number>();
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +66,10 @@ export function ProductProvider({ children }: ChildrenProps) {
     const newIngredients = amount.ingredients.map(item => (item.id === ingredientId ? ingredient : item));
 
     setAmount(prev => ({ ...prev, ingredients: newIngredients }));
+  }
+
+  function toggleCutlery(value: boolean): void {
+    setNeedCutlery(value);
   }
 
   useEffect(() => {
@@ -112,10 +119,12 @@ export function ProductProvider({ children }: ChildrenProps) {
         product,
         amount,
         totalIngredientsAmount,
+        needCutlery,
         originalPrice,
         discountedPrice,
         isLoading,
         updateAmount,
+        toggleCutlery,
       }}
     >
       {children}
