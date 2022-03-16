@@ -6,7 +6,11 @@ import { Popover } from '../../Popover';
 import accountCircleSVG from '../../../assets/account-circle.svg';
 import shoppingCartSVG from '../../../assets/shopping-cart.svg';
 
+import { useProduct } from '../../../contexts/ProductContext';
+
 export function UserData() {
+  const { isOrderConcluded, cartLength } = useProduct();
+
   return (
     <Container>
       <DataContainer>
@@ -18,9 +22,9 @@ export function UserData() {
       <DataContainer>
         <CartSVGContainer>
           <Image src={shoppingCartSVG} alt="Carrinho" />
-          <Popover />
+          {isOrderConcluded && <Popover />}
 
-          <div>7</div>
+          <div>{cartLength}</div>
         </CartSVGContainer>
 
         <Text>Carrinho</Text>

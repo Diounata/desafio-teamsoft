@@ -4,6 +4,7 @@ const Container = styled.div`
   position: absolute;
   top: 30px;
   right: -90px;
+  z-index: 5;
 
   width: 13rem;
   height: fit-content;

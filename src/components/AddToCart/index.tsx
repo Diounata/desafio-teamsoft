@@ -7,7 +7,7 @@ import plusSignSVG from '../../assets/plus-sign.svg';
 import { useProduct } from '../../contexts/ProductContext';
 
 export function AddToCart() {
-  const { amount, updateAmount } = useProduct();
+  const { amount, updateAmount, finishOrder } = useProduct();
 
   return (
     <Container>
@@ -27,7 +27,7 @@ export function AddToCart() {
         </AmountButton>
       </AmountContainer>
 
-      <AddButton>Adicionar</AddButton>
+      <AddButton onClick={finishOrder}>Adicionar</AddButton>
     </Container>
   );
 }

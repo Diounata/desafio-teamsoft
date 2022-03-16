@@ -14,6 +14,15 @@ interface UpdateAmountProps {
   ingredientId?: number;
 }
 
+interface OrderValuesProps {
+  product_name: string;
+  needCutlery: boolean;
+  ingredients: {
+    nm_item: string;
+    amount: number;
+  }[];
+}
+
 interface ContextProps {
   product: ProductProps;
   amount: AmountProps;
@@ -22,9 +31,13 @@ interface ContextProps {
   originalPrice: number;
   discountedPrice: number;
   isLoading: boolean;
+  isOrderConcluded: boolean;
+  orderValues: OrderValuesProps;
+  cartLength: number;
 
   updateAmount(props: UpdateAmountProps): void;
   toggleCutlery(value: boolean): void;
+  finishOrder(): void;
 }
 
 export function ProductProvider({ children }: ChildrenProps) {
@@ -35,6 +48,9 @@ export function ProductProvider({ children }: ChildrenProps) {
   const [originalPrice, setOriginalPrice] = useState<number>();
   const [discountedPrice, setDiscountedPrice] = useState<number>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isOrderConcluded, setIsOrderConcluded] = useState(false);
+  const [orderValues, setOrderValues] = useState<OrderValuesProps>();
+  const [cartLength, setCartLength] = useState<number>(0);
 
   function updateAmount(props: UpdateAmountProps): void {
     const { action, type, ingredientId } = props;
@@ -70,6 +86,38 @@ export function ProductProvider({ children }: ChildrenProps) {
 
   function toggleCutlery(value: boolean): void {
     setNeedCutlery(value);
+  }
+
+  function resetOrder(): void {
+    const newAmount: AmountProps = {
+      product: 1,
+      ingredients: product.ingredients[0].itens.map(item => ({ ...item, amount: 1 })),
+    };
+
+    setAmount(newAmount);
+    setNeedCutlery(false);
+  }
+
+  function finishOrder(): void {
+    const ingredients = amount.ingredients.map(({ nm_item, amount }) => ({ nm_item, amount }));
+    const orderValues: OrderValuesProps = {
+      product_name: product.nm_product,
+      needCutlery,
+      ingredients: [
+        { nm_item: 'carne 250g', amount: 1 },
+        { nm_item: 'Bacon', amount: 1 },
+        { nm_item: 'Molho especial', amount: 1 },
+        ...ingredients,
+      ],
+    };
+
+    setTimeout(() => setIsOrderConcluded(false), 10000);
+    window.alert('Sua compra foi adicionada ao carrinho com sucesso!');
+
+    setCartLength(prev => prev + amount.product);
+    setIsOrderConcluded(true);
+    setOrderValues(orderValues);
+    resetOrder();
   }
 
   useEffect(() => {
@@ -123,8 +171,12 @@ export function ProductProvider({ children }: ChildrenProps) {
         originalPrice,
         discountedPrice,
         isLoading,
+        isOrderConcluded,
+        orderValues,
+        cartLength,
         updateAmount,
         toggleCutlery,
+        finishOrder,
       }}
     >
       {children}
