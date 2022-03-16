@@ -46,17 +46,20 @@ const Amount = styled.p`
   color: ${({ theme }) => theme.COLORS.DARK_GRAY};
 `;
 
-const Button = styled.button<{ amount?: number }>`
-  opacity: ${props => (props.amount === 0 ? 0.4 : 1)};
-
+const Button = styled.button`
   background-color: inherit;
   border: none;
 
-  cursor: ${props => (props.amount === 0 ? 'not-allowed' : 'pointer')};
+  cursor: pointer;
   transition: 0.2s;
 
   &:hover {
     filter: brightness(70%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
   }
 `;
 

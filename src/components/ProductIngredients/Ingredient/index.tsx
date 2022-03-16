@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function Ingredient({ value, ingredientAmount }: Props) {
-  const { updateAmount } = useProduct();
+  const { totalIngredientsAmount, updateAmount } = useProduct();
 
   const { amount } = ingredientAmount;
 
@@ -28,9 +28,8 @@ export function Ingredient({ value, ingredientAmount }: Props) {
 
       <AmountContainer>
         <Button
-          onClick={() => updateAmount({ action: 'decrease', type: 'ingredient', ingredientId: value.id })}
-          amount={amount}
-          disabled={amount === 0}
+          onClick={() => updateAmount({ action: '-', type: 'ingredient', ingredientId: value.id })}
+          disabled={!amount}
         >
           <Image src={minusSignSVG} alt="Diminuir" height={14} />
         </Button>
@@ -38,7 +37,8 @@ export function Ingredient({ value, ingredientAmount }: Props) {
         <Amount>{amount}</Amount>
 
         <Button
-          onClick={() => updateAmount({ action: 'increase', type: 'ingredient', ingredientId: value.id })}
+          onClick={() => updateAmount({ action: '+', type: 'ingredient', ingredientId: value.id })}
+          disabled={totalIngredientsAmount >= 8}
         >
           <Image src={plusSignSVG} alt="Adicionar" height={14} />
         </Button>

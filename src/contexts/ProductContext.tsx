@@ -9,7 +9,7 @@ interface ChildrenProps {
 }
 
 interface UpdateAmountProps {
-  action: 'decrease' | 'increase';
+  action: '-' | '+';
   type: 'ingredient' | 'product';
   ingredientId?: number;
 }
@@ -17,6 +17,7 @@ interface UpdateAmountProps {
 interface ContextProps {
   product: ProductProps;
   amount: AmountProps;
+  totalIngredientsAmount: number;
   originalPrice: number;
   discountedPrice: number;
   isLoading: boolean;
@@ -27,6 +28,7 @@ interface ContextProps {
 export function ProductProvider({ children }: ChildrenProps) {
   const [product, setProduct] = useState<ProductProps>();
   const [amount, setAmount] = useState<AmountProps>();
+  const [totalIngredientsAmount, setTotalIngredientsAmount] = useState<number>();
   const [originalPrice, setOriginalPrice] = useState<number>();
   const [discountedPrice, setDiscountedPrice] = useState<number>();
   const [isLoading, setIsLoading] = useState(true);
@@ -35,18 +37,24 @@ export function ProductProvider({ children }: ChildrenProps) {
     const { action, type, ingredientId } = props;
 
     const calcAmont = (element: number) => {
-      return action === 'increase' ? element + 1 : element - 1;
+      return action === '+' ? element + 1 : element - 1;
     };
 
     if (type === 'product') {
       let productAmount = amount.product;
 
-      if (productAmount === 1 && action === 'decrease') return;
+      if (productAmount === 1 && action === '-') return;
 
       productAmount = calcAmont(productAmount);
 
       return setAmount(prev => ({ ...prev, product: productAmount }));
     }
+
+    const ingredientsAmount = amount.ingredients
+      .map(item => item.amount)
+      .reduce((prev, current) => prev + current);
+
+    if (ingredientsAmount >= 8 && action === '+') return;
 
     const ingredient = amount.ingredients.find(item => item.id === ingredientId);
 
@@ -81,6 +89,9 @@ export function ProductProvider({ children }: ChildrenProps) {
 
     let amountPrice = amount.product * product.vl_price;
     const productAmount = amount.ingredients;
+    const ingredientsAmount = amount.ingredients
+      .map(element => element.amount)
+      .reduce((prev, current) => prev + current);
 
     for (let i = 0; i < productAmount.length; i++) {
       const { vl_item, amount } = productAmount[i];
@@ -90,13 +101,22 @@ export function ProductProvider({ children }: ChildrenProps) {
 
     const PRODUCT_DISCOUNT_VALUE = product.vl_discount / product.vl_price;
 
+    setTotalIngredientsAmount(ingredientsAmount);
     setDiscountedPrice(amountPrice * PRODUCT_DISCOUNT_VALUE);
     setOriginalPrice(amountPrice);
   }, [isLoading, amount]);
 
   return (
     <ProductContext.Provider
-      value={{ product, amount, originalPrice, discountedPrice, isLoading, updateAmount }}
+      value={{
+        product,
+        amount,
+        totalIngredientsAmount,
+        originalPrice,
+        discountedPrice,
+        isLoading,
+        updateAmount,
+      }}
     >
       {children}
     </ProductContext.Provider>

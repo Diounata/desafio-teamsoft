@@ -13,7 +13,7 @@ export function AddToCart() {
     <Container>
       <AmountContainer>
         <AmountButton
-          onClick={() => updateAmount({ action: 'decrease', type: 'product' })}
+          onClick={() => updateAmount({ action: '-', type: 'product' })}
           amount={amount.product}
           disabled={amount.product === 1}
         >
@@ -22,7 +22,7 @@ export function AddToCart() {
 
         <Amount>{amount.product}</Amount>
 
-        <AmountButton onClick={() => updateAmount({ action: 'increase', type: 'product' })}>
+        <AmountButton onClick={() => updateAmount({ action: '+', type: 'product' })}>
           <Image src={plusSignSVG} alt="Aumentar" />
         </AmountButton>
       </AmountContainer>
