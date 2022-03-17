@@ -26,7 +26,8 @@
 
 <h3>:warning: Observações:</h3>
 
-<p>Não foi possível encontrar a imagem do produto através do Endpoint disponibilizado no repositório do teste técnico.</p>
+- Não foi possível encontrar a imagem do produto através do Endpoint disponibilizado no repositório do teste técnico.
+- Não consegui exportar do Figma a logo Deliverize em alta qualidade.
 
 ## :books: Tecnologias
 
