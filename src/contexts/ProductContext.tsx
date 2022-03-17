@@ -8,6 +8,11 @@ interface ChildrenProps {
   children: ReactNode;
 }
 
+interface InitialValuesProps {
+  data: ProductProps;
+  productAmount: AmountProps;
+}
+
 interface UpdateAmountProps {
   action: '-' | '+';
   type: 'ingredient' | 'product';
@@ -35,6 +40,7 @@ interface ContextProps {
   orderValues: OrderValuesProps;
   cartLength: number;
 
+  setInitialValues(values: InitialValuesProps): void;
   updateAmount(props: UpdateAmountProps): void;
   toggleCutlery(value: boolean): void;
   finishOrder(): void;
@@ -51,6 +57,12 @@ export function ProductProvider({ children }: ChildrenProps) {
   const [isOrderConcluded, setIsOrderConcluded] = useState(false);
   const [orderValues, setOrderValues] = useState<OrderValuesProps>();
   const [cartLength, setCartLength] = useState<number>(0);
+
+  function setInitialValues({ data, productAmount }: InitialValuesProps): void {
+    setProduct(data);
+    setAmount(productAmount);
+    setIsLoading(false);
+  }
 
   function updateAmount(props: UpdateAmountProps): void {
     const { action, type, ingredientId } = props;
@@ -121,25 +133,6 @@ export function ProductProvider({ children }: ChildrenProps) {
   }
 
   useEffect(() => {
-    axios.get('https://6077803e1ed0ae0017d6aea4.mockapi.io/test-frontend/products').then(res => {
-      const data: ProductProps = res.data[0];
-
-      const ingredientsAmount = data.ingredients[0].itens.map(ingredient => {
-        return { ...ingredient, amount: 1 };
-      });
-
-      const productAmount: AmountProps = {
-        product: 1,
-        ingredients: ingredientsAmount,
-      };
-
-      setProduct(data);
-      setAmount(productAmount);
-      setIsLoading(false);
-    });
-  }, []);
-
-  useEffect(() => {
     if (isLoading) return;
 
     let amountPrice = amount.product * product.vl_price;
@@ -174,6 +167,7 @@ export function ProductProvider({ children }: ChildrenProps) {
         isOrderConcluded,
         orderValues,
         cartLength,
+        setInitialValues,
         updateAmount,
         toggleCutlery,
         finishOrder,
